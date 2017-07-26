@@ -263,9 +263,8 @@ class Spawn {
 
                     // Don't collect gyms on the first run.
                     if (!$this->firstRunGid) {
-                        // TODO: Change level to >= 4 when legendaries are not that common someday.
-                        // Raid detected. Min. level 5.
-                        if (!empty($gym->lvl) && $gym->lvl > 4) {
+                        // Raid detected. Check min level.
+                        if (!empty($gym->lvl) && $gym->lvl >= $this->config->raids->minLevel) {
                             // Raid wasn't found before.
                             if ($gym->ts > $lastGid) {
                                 // Raid is not over.

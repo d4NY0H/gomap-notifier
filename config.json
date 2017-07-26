@@ -16,6 +16,12 @@
       }
     ]
   },
+  "raids": {
+    "minLevel":   5,
+    "latitude":   "__EDIT__",
+    "longitude":  "__EDIT__",
+    "radiusKm":   9
+  },
   "file": {
     "maxeid":     "maxeid.txt",
     "maxgid":     "maxgid.txt",

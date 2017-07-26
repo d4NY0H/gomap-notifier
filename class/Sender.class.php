@@ -155,8 +155,8 @@ class Sender {
                     if ($raid->active == true) {
                         // TODO: We can apply more checks here e.g. level or boss filtering to different channels.
 
-                        // Check if the raid is within a 9km radius.
-                        if ($this->withinRadius($gym, 52.376645, 9.732405, 9)) {
+                        // Check if the raid is within given radius.
+                        if ($this->withinRadius($gym, $this->config->raids->latitude, $this->config->raids->longitude, $this->config->raids->radiusKm)) {
 
                             // Telegram messages.
                             if ($this->config->telegram->active == true) {
