@@ -132,10 +132,6 @@ class Spawn {
     {
         $ch = curl_init();
 
-        // Optional: Proxy support.
-        curl_setopt($ch, CURLOPT_PROXY, "proxy2");
-        curl_setopt($ch, CURLOPT_PROXYPORT, '8080');
-
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
         curl_setopt($ch, CURLOPT_HEADER, 0); // Don't return headers.
