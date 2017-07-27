@@ -29,9 +29,43 @@ Configuration
 
 **config.json**
 
-1. Map
-	* Bounds
-    * Districts
+1. **Map**
+	* **Bounds**
+	
+		Edit your outer bounds to specify the rectangle area for which you like to receive data.
+		Example:
+
+		```
+	    "boundNorth": "52.56350",
+	    "boundEast":  "13.552260",
+	    "boundSouth": "52.459605",
+	    "boundWest":  "13.213513",
+	    "homeTown":   "Berlin",
+		```
+
+		You can get those latitude / longitude values by setting markers at <a href="https://maps.google.de">https://maps.google.de</a>.
+
+		Set the Name of your hometown.
+
+    * **Districts**
+      	
+		It's possible to configure districts to notify in separate channels.
+ 		Example:
+		
+		```
+		"districts": [
+	      {
+	        "name":       "Mitte",
+	        "active":     true,
+	        "latitude":   "52.459605",
+	        "longitude":  "13.213513",
+	        "radiusKm":   4
+	      }
+	    ]
+		```
+		
+		ivList.mitte.json
+
 2. Raids
 3. Telegram
 4. Discord
