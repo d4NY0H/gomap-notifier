@@ -55,7 +55,7 @@ How to get Telegram API Keys
 **Alternatively or if you like to get the chat_id of private channels:**
 
 1. Login under your account at web version of Telegram : <a href="https://web.telegram.org">https://web.telegram.org</a>
-2. Find your channel and check the URL. It should be like https://web.telegram.org/#/im?p=c**1055587116**_11052224402541910257
+2. Find your channel and check the URL. It should be like `https://web.telegram.org/#/im?p=c1055587116_11052224402541910257`
 3. Grab `1055587116` from it, and add `-100` as a prefix.
 4. So your channel id will be `-1001055587116`.
 
