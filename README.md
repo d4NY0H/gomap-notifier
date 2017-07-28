@@ -49,27 +49,89 @@ Configuration
 
     * **Districts**
       	
-		It's possible to configure districts to notify in separate channels.
- 		Example:
+		- It's possible to configure districts to notify in separate channels.
+		  Notifications will be sent for a given radius around latitude / longitude values. 
+ 		  Example:
 		
+			```
+			"districts": [
+		      {
+		        "name":       "Mitte",
+		        "active":     true,
+		        "latitude":   "52.459605",
+		        "longitude":  "13.213513",
+		        "radiusKm":   4
+		      }
+		    ]
+			```
+		
+		- Multiple Pokemon: Configure which Pokemon you want to receive notifications about in ivList.*yourdistrictname*.json. Then add this Object to the `ivList` array:
+			
+			```
+			{
+		        "name":     "Yourdistrictname",
+		        "active":   true,
+		        "fileName": "ivList.yourdistrictname.json",
+		        "telegram": {
+		          "yourdistrictname": "__CHAT_ID__"
+		        },
+		        "discord": {
+		          "yourdistrictname": "__WEBHOOK__"
+		        }
+	      	}
+			```
+
+		- Single Pokemon or Raids: Add your district to any raid or pokemon channel config between telegram or discord. 
+		Example:
+		
+			```
+		      {
+		        "name":   "Icognito",
+		        "active": true,
+		        "ids":    [201],
+		        "telegram": {
+				  "Yourhometownname": "__CHAT_ID__",
+		          "Yourdistrictname": "__CHAT_ID__"
+		        },
+		        "discord": {
+				  "Yourhometownname": "__WEBHOOK__",
+		          "Yourdistrictname": "__WEBHOOK__"
+		        }
+			```
+
+		- Replace *yourdistrictname* with your real districts name.
+
+2. **Raids**
+
+	- Acticate this by setting a minimum level. Notifications will be sent for a given radius around latitude / longitude values. Example:
+	
 		```
-		"districts": [
-	      {
-	        "name":       "Mitte",
-	        "active":     true,
+		  "raids": {
+		    "minLevel":   5,
 	        "latitude":   "52.459605",
 	        "longitude":  "13.213513",
-	        "radiusKm":   4
-	      }
-	    ]
+		    "radiusKm":   9
+		  },
 		```
-		
-		ivList.mitte.json
 
-2. Raids
-3. Telegram
-4. Discord
-5. Channel
+3. **Telegram**
+	
+	- TODO
+
+4. **Discord**
+	
+	- Set `"active": true,` to activate discord notifications. Name your Discord Bot. Leave `avatar` and `webhook` untouched. Example:
+
+		```
+		  "discord": {
+		    "active":   true,
+		    "botName":  "PokeBot",
+		    "avatar":   "http://i.imgur.com/Su8yH00.png",
+		    "webhook":  "https://discordapp.com/api/webhooks/"
+		  },
+		```
+
+5. **Channel**
 	* IV List
 	* IV
 	* Raid
