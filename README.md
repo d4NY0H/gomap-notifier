@@ -33,8 +33,8 @@ Configuration
 	* **Bounds**
 	
 		Edit your outer bounds to specify the rectangle area for which you like to receive data.
+		
 		Example:
-
 		```
 	    "boundNorth": "52.56350",
 	    "boundEast":  "13.552260",
@@ -51,8 +51,8 @@ Configuration
       	
 		- It's possible to configure districts to notify in separate channels.
 		  Notifications will be sent for a given radius around latitude / longitude values. 
- 		  Example:
-		
+ 		  
+			Example:
 			```
 			"districts": [
 		      {
@@ -82,8 +82,7 @@ Configuration
 			```
 
 		- Single Pokemon or Raids: Add your district to any raid or pokemon channel config between telegram or discord. 
-		Example:
-		
+		- Example:
 			```
 		      {
 		        "name":   "Icognito",
@@ -103,43 +102,113 @@ Configuration
 
 2. **Raids**
 
-	- Acticate this by setting a minimum level. Notifications will be sent for a given radius around latitude / longitude values. Example:
-	
-		```
-		  "raids": {
-		    "minLevel":   5,
-	        "latitude":   "52.459605",
-	        "longitude":  "13.213513",
-		    "radiusKm":   9
-		  },
-		```
+	- Acticate this by setting a minimum level. Notifications will be sent for a given radius around latitude / longitude values.
+
+	- Example:
+	```
+	  "raids": {
+	    "minLevel":   5,
+        "latitude":   "52.459605",
+        "longitude":  "13.213513",
+	    "radiusKm":   9
+	  },
+	```
 
 3. **Telegram**
 	
-	- TODO
+	- Set `"active": true,` to activate telegram notifications.
+	- Set `apiKey` to the API Token from the <a href="https://telegram.me/botfather">BotFather</a>.
+	- Set your Bot name.
 
 4. **Discord**
 	
-	- Set `"active": true,` to activate discord notifications. Name your Discord Bot. Leave `avatar` and `webhook` untouched. Example:
+	- Set `"active": true,` to activate discord notifications. Name your Discord Bot. Leave `avatar` and `webhook` untouched.
 
-		```
-		  "discord": {
-		    "active":   true,
-		    "botName":  "PokeBot",
-		    "avatar":   "http://i.imgur.com/Su8yH00.png",
-		    "webhook":  "https://discordapp.com/api/webhooks/"
-		  },
-		```
+	- Example:
+	```
+	  "discord": {
+	    "active":   true,
+	    "botName":  "PokeBot",
+	    "avatar":   "http://i.imgur.com/Su8yH00.png",
+	    "webhook":  "https://discordapp.com/api/webhooks/"
+	  },
+	```
 
 5. **Channel**
 	* IV List
+	
+		- Use the IV list if you want to receive nofications about many different pokemon in a single channel. You can configure IV lists for your hometown or any defined district. Add your data to any activated notification mode (telegram / discord).
+		- The `__WEBHOOK__` is the part of the Discord webhook that is following right after `https://discordapp.com/api/webhooks/`
+		- This was created to configure a list with minimum IV values on a per pokemon base. Unfortunately IV data is currently disabled.
+		- Example:
+		```   
+		  {
+	        "name":     "Springfield",
+	        "active":   true,
+	        "fileName": "ivList.springfield.json",
+	        "telegram": {
+	          "Springfield": "__CHAT_ID__"
+	        },
+	        "discord": {
+	          "Springfield": "__WEBHOOK__"
+	        }
+	      }
+		```
+
 	* IV
+		- The IV channel is currently disabled because there is no data to receive.
+
 	* Raid
+		- Set `"active": true,` to activate Raid notifications.
+		- Add your data to any activated notification mode (telegram / discord).
+		- Currently, there is only one Raid channel supported. Will be changed soon.
+		- Example:
+		```
+		    "raid": [
+		      {
+		        "name": "Raid",
+		        "active": true,
+		        "telegram": {
+		          "Springfield": "__CHAT_ID__"
+		        },
+		        "discord": {
+		        }
+		      }
+		    ]
+		```
+
 	* Pokemon
+		- These Channels will notify Pokemon regardless wich IV values they have.
+		- Set `"active": true,` to activate Pokemon notifications.
+		- It is possible to add one `[201]` or multiple `[147, 148]` Pokemon Ids to the `ids` array. You can find the ids in the file <a href="https://github.com/d4NY0H/gomap-notifier/blob/master/nameList.json">nameList.json</a>.
+		- Add your data to any activated notification mode (telegram / discord).
+		- Example:
+		```
+	      {
+	        "name":   "Icognito",
+	        "active": true,
+	        "ids":    [201],
+	        "telegram": {
+	          "Springfield": "__CHAT_ID__"
+	        },
+	        "discord": {
+	          "Springfield": "__WEBHOOK__"
+	        }
+	      }
+		```
 
-**ivList.yourcityname.json**
+6. IV List
 
--> todo
+ 	* ivList.yourcityname.json
+
+		- Add all Pokemon you want to get notified of in a single channel.
+		- The parents object key is the Pokemon id. You can find the ids in the file <a href="https://github.com/d4NY0H/gomap-notifier/blob/master/nameList.json">nameList.json</a>.
+		- Edit the minimum IV value in the childs object. Since IV data isn't available now, you should set all values to zero.
+		- Edit the name of the Pokemon.
+		- Example:
+		```
+			"3" :   { "minIv": 0,   "name": "Bisaflor" },
+		```
 
 How to get Telegram API Keys
 ------------
