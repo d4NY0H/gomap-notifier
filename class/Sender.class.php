@@ -153,8 +153,6 @@ class Sender {
                 foreach ($this->config->channel->raid AS $raid) {
                     // Raid check is active.
                     if ($raid->active == true) {
-                        // TODO: We can apply more checks here e.g. level or boss filtering to different channels.
-
                         // Check if the raid is within given radius.
                         if ($this->withinRadius($gym, $this->config->raids->latitude, $this->config->raids->longitude, $this->config->raids->radiusKm)) {
 

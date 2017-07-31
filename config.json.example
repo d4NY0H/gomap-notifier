@@ -17,7 +17,8 @@
     ]
   },
   "raids": {
-    "minLevel":   5,
+    "level5":     true,
+    "level4":     [248],
     "latitude":   "__EDIT__",
     "longitude":  "__EDIT__",
     "radiusKm":   9

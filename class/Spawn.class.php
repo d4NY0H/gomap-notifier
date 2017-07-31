@@ -250,21 +250,25 @@ class Spawn {
 
                 // Iterate each gym.
                 foreach ($this->data->gyms AS $gym) {
-                    // Find max gym id. (timestamp is gymId)
+                    // Find max gym id.
                     if ($gym->ts > $this->maxgid) {
+                        // Use the timestamp as gymId.
                         $this->maxgid = $gym->ts;
                     }
 
                     // Don't collect gyms on the first run.
                     if (!$this->firstRunGid) {
-                        // Raid detected. Check min level.
-                        if (!empty($gym->lvl) && $gym->lvl >= $this->config->raids->minLevel) {
-                            // Raid wasn't found before.
-                            if ($gym->ts > $lastGid) {
-                                // Raid is not over.
-                                if ($timestamp < $gym->re) {
-                                    // Push into gyms array.
-                                    array_push($gyms, $gym);
+                        // Raid detected. Raid level and Boss pokemon id are required.
+                        if (!empty($gym->lvl) && !empty($gym->rpid)) {
+                            // Check if the raid should trigger a notification.
+                            if ($this->checkRaid($gym->lvl, $gym->rpid)) {
+                                // Raid wasn't found before.
+                                if ($gym->ts > $lastGid) {
+                                    // Raid is not over.
+                                    if ($timestamp < $gym->re) {
+                                        // Push into gyms array.
+                                        array_push($gyms, $gym);
+                                    }
                                 }
                             }
                         }
@@ -278,5 +282,42 @@ class Spawn {
 
         // Return them.
         return $gyms;
+    }
+
+    /**
+     * Check if a raid should trigger a notification.
+     * @param $gymLevel
+     * @param $bossId
+     * @return bool
+     */
+    private function checkRaid($gymLevel, $bossId) {
+        // Init found var.
+        $found = false;
+
+        // Level 5 raid detected.
+        if ($gymLevel == 5) {
+            // Boss found in level 5 array.
+            if (is_array($this->config->raids->level5) && in_array($bossId, $this->config->raids->level5)) {
+                $found = true;
+
+            // Notify about all level 5 raids.
+            } else if ($this->config->raids->level5 == true) {
+                $found = true;
+            }
+
+        // Level 4 raid detected.
+        } else if ($gymLevel == 4) {
+            // Boss found in level 4 array.
+            if (is_array($this->config->raids->level4) && in_array($bossId, $this->config->raids->level4)) {
+                $found = true;
+
+            // Notify about all level 4 raids.
+            } else if ($this->config->raids->level4 == true) {
+                $found = true;
+            }
+        }
+
+        // return found state.
+        return $found;
     }
 }

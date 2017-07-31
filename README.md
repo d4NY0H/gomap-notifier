@@ -102,12 +102,15 @@ Configuration
 
 2. **Raids**
 
-	- Acticate this by setting a minimum level. Notifications will be sent for a given radius around latitude / longitude values.
+	- A Level (only 4 and 5) can be activated by setting it to `true` or by adding an array filled with pokemon id's.
+	- Notifications will be sent for a given radius around latitude / longitude values.
+
 
 	- Example:
 	```
 	  "raids": {
-	    "minLevel":   5,
+	    "level5":     true,
+        "level4":     [248],
         "latitude":   "52.459605",
         "longitude":  "13.213513",
 	    "radiusKm":   9
