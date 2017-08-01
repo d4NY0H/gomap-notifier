@@ -210,14 +210,13 @@ class Spawn {
 
                     // Don't collect mons on the first run.
                     if (!$this->firstRunEid) {
-                        // Only use pokemon with IV value.
-                        //if (!empty($pokemon->iv)) {
-                            // Calculate real iv.
-                            //$pokemon->iv = round($pokemon->iv * 100 / 45);
-
-                            // Push into mons array.
-                            array_push($mons, $pokemon);
-                        //}
+                        // Check for IV.
+                        if (!empty($pokemon->iv)) {
+                            // Better calculate the real IV now.
+                            $pokemon->iv = round($pokemon->iv * 100 / 45);
+                        }
+                        // Push into mons array.
+                        array_push($mons, $pokemon);
                     }
                 }
 

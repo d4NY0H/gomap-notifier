@@ -326,10 +326,20 @@ class Sender {
             $list = $this->ivList->{$listName};
             // Pokemon id found in IV list.
             if (!empty($list->{$mon->pokemon_id})) {
-                // Pokemons IV is higher than min.
-                //if ($mon->iv >= $list->{$mon->pokemon_id}->minIv) {
-                    $check = true;
-                //}
+                // IV value found.
+                if (!empty($mon->iv)) {
+                    // IV is higher than min.
+                    if ($mon->iv >= $list->{$mon->pokemon_id}->minIv) {
+                        $check = true;
+                    }
+
+                // No IV value found.
+                } else {
+                    // Display only zero min IV values.
+                    If ($list->{$mon->pokemon_id}->minIv == 0) {
+                        $check = true;
+                    }
+                }
             }
         }
 
