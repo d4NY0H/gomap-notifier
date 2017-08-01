@@ -125,7 +125,7 @@ class Spawn {
 
     /**
      * Get url by curl.
-     * @param $url
+     * @param $url string
      * @return mixed
      */
     private function curl($url)
@@ -196,7 +196,8 @@ class Spawn {
         $mons = array();
 
         // Any notification method must be enabled.
-        if ($this->config->telegram->active == true || $this->config->discord->active == true) {
+        if ((isset($this->config->telegram->active) && $this->config->telegram->active === true) ||
+            (isset($this->config->discord->active) && $this->config->discord->active === true)) {
 
             // Pokemon found.
             if (!empty($this->data) && !empty($this->data->pokemons)) {
@@ -241,7 +242,8 @@ class Spawn {
         $gyms = array();
 
         // Any notification method must be enabled.
-        if ($this->config->telegram->active == true || $this->config->discord->active == true) {
+        if ((isset($this->config->telegram->active) && $this->config->telegram->active === true) ||
+            (isset($this->config->discord->active) && $this->config->discord->active === true)) {
 
             // Gym found.
             if (!empty($this->data) && !empty($this->data->gyms)) {
@@ -286,8 +288,8 @@ class Spawn {
 
     /**
      * Check if a raid should trigger a notification.
-     * @param $gymLevel
-     * @param $bossId
+     * @param $gymLevel int
+     * @param $bossId int
      * @return bool
      */
     private function checkRaid($gymLevel, $bossId) {
@@ -295,24 +297,24 @@ class Spawn {
         $found = false;
 
         // Level 5 raid detected.
-        if ($gymLevel == 5) {
+        if ($gymLevel == 5 && isset($this->config->raids->level5)) {
             // Boss found in level 5 array.
             if (is_array($this->config->raids->level5) && in_array($bossId, $this->config->raids->level5)) {
                 $found = true;
 
-            // Notify about all level 5 raids.
-            } else if ($this->config->raids->level5 == true) {
+            // Notify about all level 5 raids if set to true.
+            } else if (!is_array($this->config->raids->level5) && $this->config->raids->level5 === true) {
                 $found = true;
             }
 
         // Level 4 raid detected.
-        } else if ($gymLevel == 4) {
+        } else if ($gymLevel == 4 && isset($this->config->raids->level4)) {
             // Boss found in level 4 array.
             if (is_array($this->config->raids->level4) && in_array($bossId, $this->config->raids->level4)) {
                 $found = true;
 
-            // Notify about all level 4 raids.
-            } else if ($this->config->raids->level4 == true) {
+            // Notify about all level 4 raids if set to true.
+            } else if (!is_array($this->config->raids->level4) && $this->config->raids->level4 === true) {
                 $found = true;
             }
         }
