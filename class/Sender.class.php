@@ -103,7 +103,7 @@ class Sender {
                 // Check each IV list.
                 foreach ($this->config->channel->ivList AS $list) {
                     // IV list is active.
-                    if (isset($list->active) && $list->active == true) {
+                    if (isset($list->active) && $list->active === true) {
                         // Required fields are found.
                         if (!empty($list->name) && !empty($list->fileName)) {
                             // Get json file.
@@ -152,12 +152,12 @@ class Sender {
                 // Each IV check.
                 foreach ($this->config->channel->raid AS $raid) {
                     // Raid check is active.
-                    if ($raid->active == true) {
+                    if ($raid->active === true) {
                         // Check if the raid is within given radius.
                         if ($this->withinRadius($gym, $this->config->raids->latitude, $this->config->raids->longitude, $this->config->raids->radiusKm)) {
 
                             // Telegram messages.
-                            if ($this->config->telegram->active == true) {
+                            if ($this->config->telegram->active === true) {
                                 // Get chat id for district/hometown.
                                 if (!empty($raid->telegram->Hannover)) {
                                     array_push($chatIds->telegram, $raid->telegram->Hannover);
@@ -165,7 +165,7 @@ class Sender {
                             }
 
                             // Discord messages.
-                            if ($this->config->discord->active == true) {
+                            if ($this->config->discord->active === true) {
                                 // Get chat id for district/hometown.
                                 if (!empty($raid->discord->Hannover)) {
                                     array_push($chatIds->discord, $raid->discord->Hannover);
@@ -198,13 +198,13 @@ class Sender {
                 // Each IV list check.
                 foreach ($this->config->channel->ivList AS $listChannel) {
                     // IV list check is active and pokemon has high IV.
-                    if ($listChannel->active == true && $this->checkForIvList($listChannel->name, $mon)) {
+                    if ($listChannel->active === true && $this->checkForIvList($listChannel->name, $mon)) {
 
                         // Check if pokemon belongs to a district.
                         $district = $this->checkDistrict($mon);
 
                         // Telegram messages.
-                        if ($this->config->telegram->active == true) {
+                        if ($this->config->telegram->active === true) {
                             // Get chat id for district/hometown.
                             if (!empty($listChannel->telegram->{$district})) {
                                 array_push($chatIds->telegram, $listChannel->telegram->{$district});
@@ -212,7 +212,7 @@ class Sender {
                         }
 
                         // Discord messages.
-                        if ($this->config->discord->active == true) {
+                        if ($this->config->discord->active === true) {
                             // Get chat id for district/hometown.
                             if (!empty($listChannel->discord->{$district})) {
                                 array_push($chatIds->discord, $listChannel->discord->{$district});
@@ -227,13 +227,13 @@ class Sender {
                 // Each IV check.
                 foreach ($this->config->channel->iv AS $ivChannel) {
                     // IV check is active and pokemon has high IV.
-                    if ($ivChannel->active == true && $this->checkForIv($ivChannel->value, $mon)) {
+                    if ($ivChannel->active === true && $this->checkForIv($ivChannel->value, $mon)) {
 
                         // Check if pokemon belongs to a district.
                         $district = $this->checkDistrict($mon);
 
                         // Telegram messages.
-                        if ($this->config->telegram->active == true) {
+                        if ($this->config->telegram->active === true) {
                             // Get chat id for district/hometown.
                             if (!empty($ivChannel->telegram->{$district})) {
                                 array_push($chatIds->telegram, $ivChannel->telegram->{$district});
@@ -241,7 +241,7 @@ class Sender {
                         }
 
                         // Discord messages.
-                        if ($this->config->discord->active == true) {
+                        if ($this->config->discord->active === true) {
                             // Get chat id for district/hometown.
                             if (!empty($ivChannel->discord->{$district})) {
                                 array_push($chatIds->discord, $ivChannel->discord->{$district});
@@ -256,13 +256,13 @@ class Sender {
                 // Each pokemonId check.
                 foreach ($this->config->channel->pokemonId AS $idChannel) {
                     // pokemonId check is active and pokemonId is matching.
-                    if ($idChannel->active == true && $this->checkForPokemonId($idChannel->ids, $mon)) {
+                    if ($idChannel->active === true && $this->checkForPokemonId($idChannel->ids, $mon)) {
 
                         // Check if pokemon belongs to a district.
                         $district = $this->checkDistrict($mon);
 
                         // Telegram messages.
-                        if ($this->config->telegram->active == true) {
+                        if ($this->config->telegram->active === true) {
                             // Get chat id for district/hometown.
                             if (!empty($idChannel->telegram->{$district})) {
                                 array_push($chatIds->telegram, $idChannel->telegram->{$district});
@@ -270,7 +270,7 @@ class Sender {
                         }
 
                         // Discord messages.
-                        if ($this->config->discord->active == true) {
+                        if ($this->config->discord->active === true) {
                             // Get chat id for district/hometown.
                             if (!empty($idChannel->discord->{$district})) {
                                 array_push($chatIds->discord, $idChannel->discord->{$district});
@@ -295,11 +295,11 @@ class Sender {
             // Now check each district.
             foreach ($this->config->map->districts AS $district) {
                 // Active district found.
-                if ($district->active == true) {
+                if ($district->active === true) {
                     // Check if the mon is within districts radius.
                     $check = $this->withinRadius($mon, $district->latitude, $district->longitude, $district->radiusKm);
                     // Return districts name on first hit.
-                    if ($check == true) {
+                    if ($check === true) {
                         return $district->name;
                     }
                 }
@@ -448,11 +448,8 @@ class Sender {
             if ($minutes >= 5) {
                 // Mon should be known.
                 if (!empty($spawn->pokemon_id) && !empty($this->nameList) && !empty($this->nameList->{$spawn->pokemon_id})) {
-                    // Get texts.
+                    // Get pokemon name by id.
                     $spawn->pokemon_name = $this->nameList->{$spawn->pokemon_id};
-
-                    //$spawn->move1 = !empty($spawn->move1) ? $this->getMoveName($spawn->move1) : 'unbekannt';
-                    //$spawn->move2 = !empty($spawn->move2) ? $this->getMoveName($spawn->move2) : 'unbekannt';
 
                     // Get location array by lat / lng.
                     $locArray = $this->geocoder->getLocation($spawn->latitude, $spawn->longitude);
@@ -460,8 +457,16 @@ class Sender {
                     // Location is required.
                     if (!empty($locArray)) {
                         $message .= sprintf("<b>%s</b> ", $spawn->pokemon_name);
-                        //$message .= $spawn->iv != 0 ? sprintf("(%s%%) ", $spawn->iv) : "";
-                        //$message .= !empty($spawn->move1) && $spawn->move1 != 'unbekannt' && !empty($spawn->move2) && $spawn->move2 != 'unbekannt' ? sprintf("mit <i>%s / %s</i> ", $spawn->move1, $spawn->move2) : "";
+                        // Add IV text to message if existent.
+                        if (!empty($spawn->iv)) {
+                            // Build message.
+                            $message .= sprintf("(%s%%) ", $spawn->iv);
+                        }
+                        // Add move text to message if existent.
+                        if (!empty($spawn->move1) && !empty($spawn->move2)) {
+                            // Build message.
+                            $message .= sprintf("mit <i>%s / %s</i> ", $this->getMoveName($spawn->move1), $this->getMoveName($spawn->move2));
+                        }
                         $message .= "in " . (!empty($locArray['district']) ? $locArray['district'] : '') . (!empty($locArray['street']) ? ", " . $locArray['street'] : "") . " ";
                         $message .= "bis " . $spawn->disappear_time . ".\n";
                         $message .= 'http://maps.google.com/maps?q=' . $spawn->latitude . ',' . $spawn->longitude;
