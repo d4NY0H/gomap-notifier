@@ -158,17 +158,17 @@ class Sender {
 
                             // Telegram messages.
                             if ($this->config->telegram->active === true) {
-                                // Get chat id for district/hometown.
-                                if (!empty($raid->telegram->Hannover)) {
-                                    array_push($chatIds->telegram, $raid->telegram->Hannover);
+                                // Get chat id for hometown.
+                                if (!empty($raid->telegram->{$this->config->map->homeTown})) {
+                                    array_push($chatIds->telegram, $raid->telegram->{$this->config->map->homeTown});
                                 }
                             }
 
                             // Discord messages.
                             if ($this->config->discord->active === true) {
-                                // Get chat id for district/hometown.
-                                if (!empty($raid->discord->Hannover)) {
-                                    array_push($chatIds->discord, $raid->discord->Hannover);
+                                // Get chat id for hometown.
+                                if (!empty($raid->discord->{$this->config->map->homeTown})) {
+                                    array_push($chatIds->discord, $raid->discord->{$this->config->map->homeTown});
                                 }
                             }
                         }
