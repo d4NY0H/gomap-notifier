@@ -5,10 +5,10 @@
     "boundEast":  "__EDIT__",
     "boundSouth": "__EDIT__",
     "boundWest":  "__EDIT__",
-    "homeTown":   "Springfield",
+    "homeTown":   "__YOUR_HOMETOWN_NAME__",
     "districts": [
       {
-        "name":       "District",
+        "name":       "__YOUR_DISTRICT_NAME__",
         "active":     false,
         "latitude":   "__EDIT__",
         "longitude":  "__EDIT__",
@@ -44,25 +44,25 @@
   "channel": {
     "ivList": [
       {
-        "name":     "Springfield",
+        "name":     "__YOUR_HOMETOWN_NAME__",
         "active":   true,
-        "fileName": "ivList.springfield.json",
+        "fileName": "ivList.__YOUR_HOMETOWN_NAME__.json",
         "telegram": {
-          "Springfield": "__CHAT_ID__"
+          "__YOUR_HOMETOWN_NAME__": "__CHAT_ID__"
         },
         "discord": {
-          "Springfield": "__WEBHOOK__"
+          "__YOUR_HOMETOWN_NAME__": "__WEBHOOK__"
         }
       },
       {
-        "name":     "District",
+        "name":     "__YOUR_DISTRICT_NAME__",
         "active":   false,
-        "fileName": "ivList.district.json",
+        "fileName": "ivList.__YOUR_DISTRICT_NAME__.json",
         "telegram": {
-          "District": "__CHAT_ID__"
+          "__YOUR_DISTRICT_NAME__": "__CHAT_ID__"
         },
         "discord": {
-          "District": "__WEBHOOK__"
+          "__YOUR_DISTRICT_NAME__": "__WEBHOOK__"
         }
       }
     ],
@@ -82,92 +82,84 @@
         "name": "Raid",
         "active": true,
         "telegram": {
-          "Springfield": "__CHAT_ID__"
+          "__YOUR_HOMETOWN_NAME__": "__CHAT_ID__"
         },
         "discord": {
+          "__YOUR_HOMETOWN_NAME__": "__WEBHOOK__"
         }
       }
     ],
     "pokemonId": [
       {
-        "name":   "Dratini / Draginir",
-        "active": true,
-        "ids":    [147, 148],
+        "name":   "Icognito",
+        "active": false,
+        "ids":    [201],
         "telegram": {
-          "Springfield": "__CHAT_ID__"
+          "__YOUR_HOMETOWN_NAME__": "__CHAT_ID__"
         },
         "discord": {
-          "Springfield": "__WEBHOOK__"
+          "__YOUR_HOMETOWN_NAME__": "__WEBHOOK__"
+        }
+      },
+      {
+        "name":   "Dratini / Draginir",
+        "active": false,
+        "ids":    [147, 148],
+        "telegram": {
+        },
+        "discord": {
         }
       },
       {
         "name":   "Larvitar / Pupitar / Despotar",
-        "active": true,
+        "active": false,
         "ids":    [246, 247, 248],
         "telegram": {
-          "Springfield": "__CHAT_ID__"
         },
         "discord": {
-          "Springfield": "__WEBHOOK__"
-        }
-      },
-      {
-        "name":   "Icognito",
-        "active": true,
-        "ids":    [201],
-        "telegram": {
-          "Springfield": "__CHAT_ID__"
-        },
-        "discord": {
-          "Springfield": "__WEBHOOK__"
         }
       },
       {
         "name":   "Relaxo",
-        "active": true,
+        "active": false,
         "ids":    [143],
         "telegram": {
-          "Springfield": "__CHAT_ID__"
         },
         "discord": {
         }
       },
       {
         "name":   "Dragoran",
-        "active": true,
+        "active": false,
         "ids":    [149],
         "telegram": {
-          "Springfield": "__CHAT_ID__"
         },
         "discord": {
         }
       },
       {
         "name":   "Garados",
-        "active": true,
+        "active": false,
         "ids":    [130],
         "telegram": {
-          "Springfield": "__CHAT_ID__"
         },
         "discord": {
         }
       },
       {
         "name":   "Lapras",
-        "active": true,
+        "active": false,
         "ids":    [131],
         "telegram": {
-          "Springfield": "__CHAT_ID__"
         },
         "discord": {
         }
       },
       {
         "name":   "Heiteira",
-        "active": true,
+        "active": false,
         "ids":    [242],
         "telegram": {
-          "Springfield": "__CHAT_ID__"
         },
         "discord": {
         }
