@@ -243,3 +243,8 @@ Development
 
 Want to contribute? Great! [Fork my repo, apply your changes and open me a PR](https://help.github.com/articles/creating-a-pull-request-from-a-fork/)!<br />
 Contact me by Telegram: [@d4NY0](https://t.me/d4NY0) 
+
+License
+------------
+
+Please see the [LICENSE](https://github.com/d4NY0H/gomap-notifier/blob/master/LICENSE.md) included in this repository for a full copy of the MIT license, which this project is licensed under.
