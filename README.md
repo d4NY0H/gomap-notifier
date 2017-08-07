@@ -233,3 +233,13 @@ Troubleshooting
 **reset.php**
 
 This file can be used to delete the content of the <a href="https://github.com/d4NY0H/gomap-notifier/blob/master/maxeid.txt">maxeid.txt</a> and <a href="https://github.com/d4NY0H/gomap-notifier/blob/master/maxgid.txt">maxgid.txt</a> files. This is necessary if the ids have changed on the server side and no notifications are sent anymore.
+
+Todos
+------------
+- Add groupagree voting (times) automatically to raid messages. *Contributors are welcome!*
+
+Development
+------------
+
+Want to contribute? Great! [Fork my repo, apply your changes and open me a PR](https://help.github.com/articles/creating-a-pull-request-from-a-fork/)!<br />
+Contact me by Telegram: [@d4NY0](https://t.me/d4NY0) 
