@@ -401,6 +401,7 @@ class Sender {
     {
         // Init.
         $message = '';
+        $team = '';
 
         // Raid data is required.
         if (!empty($raid)) {
@@ -414,6 +415,27 @@ class Sender {
                 $raid->begin    = date("H:i", $raid->rb);
                 $raid->end      = date("H:i", $raid->re);
 
+                // Team id is set.
+                if (isset($raid->team_id)) {
+                    // Get team by id.
+                    switch ($raid->team_id) {
+                        case(1):
+                            $team = ' (blau)';
+                            break;
+
+                        case(2):
+                            $team = ' (rot)';
+                            break;
+
+                        case(3):
+                            $team = ' (gelb)';
+                            break;
+
+                        default:
+                            $team = '';
+                    }
+                }
+
                 // Get location array by lat / lng.
                 $locArray = $this->geocoder->getLocation($raid->latitude, $raid->longitude);
 
@@ -422,7 +444,7 @@ class Sender {
                     $message .= sprintf("<b>%s</b>, ", $raid->bossName);
                     $message .= (!empty($locArray['district']) ? $locArray['district'] : '') . (!empty($locArray['street']) ? ", " . $locArray['street'] : "") . ", ";
                     $message .= "von " . $raid->begin . " bis " . $raid->end . ".\n";
-                    $message .= sprintf("Arena: <i>%s</i>\n", $raid->name);
+                    $message .= sprintf("Arena: <i>%s%s</i>\n", $raid->name, $team);
                     $message .= 'http://maps.google.com/maps?q=' . $raid->latitude . ',' . $raid->longitude;
                 }
             }
