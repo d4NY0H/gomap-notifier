@@ -236,7 +236,8 @@ This file can be used to delete the content of the <a href="https://github.com/d
 
 Todos
 ------------
-- Add groupagree voting (times) automatically to raid messages. *Contributors are welcome!*
+- Add voting (times) automatically to raid messages in Telegram like the [@groupagreebot](https://t.me/groupagreebot) bot.<br />
+-> Implement something like the [RaidPokemonBot](https://github.com/atis/raid-pokemon-bot). ***Contributors are needed for this!***
 
 Development
 ------------
