@@ -69,14 +69,14 @@ Configuration
 			
 			```
 			{
-		        "name":     "Yourdistrictname",
+		        "name":     "__YOUR_DISTRICT_NAME__",
 		        "active":   true,
-		        "fileName": "ivList.yourdistrictname.json",
+		        "fileName": "ivList.__YOUR_DISTRICT_NAME__.json",
 		        "telegram": {
-		          "yourdistrictname": "__CHAT_ID__"
+		          "__YOUR_DISTRICT_NAME__": "__CHAT_ID__"
 		        },
 		        "discord": {
-		          "yourdistrictname": "__WEBHOOK__"
+		          "__YOUR_DISTRICT_NAME__": "__WEBHOOK__"
 		        }
 	      	}
 			```
@@ -89,12 +89,12 @@ Configuration
 		        "active": true,
 		        "ids":    [201],
 		        "telegram": {
-				  "Yourhometownname": "__CHAT_ID__",
-		          "Yourdistrictname": "__CHAT_ID__"
+				  "__YOUR_HOMETOWN_NAME__": "__CHAT_ID__",
+		          "__YOUR_DISTRICT_NAME__": "__CHAT_ID__"
 		        },
 		        "discord": {
-				  "Yourhometownname": "__WEBHOOK__",
-		          "Yourdistrictname": "__WEBHOOK__"
+				  "__YOUR_HOMETOWN_NAME__": "__WEBHOOK__",
+		          "__YOUR_DISTRICT_NAME__": "__WEBHOOK__"
 		        }
 			```
 
@@ -146,14 +146,14 @@ Configuration
 		- Example:
 		```   
 		  {
-	        "name":     "Springfield",
+	        "name":     "__YOUR_HOMETOWN_NAME__",
 	        "active":   true,
-	        "fileName": "ivList.springfield.json",
+	        "fileName": "ivList.__YOUR_HOMETOWN_NAME__.json",
 	        "telegram": {
-	          "Springfield": "__CHAT_ID__"
+	          "__YOUR_HOMETOWN_NAME__": "__CHAT_ID__"
 	        },
 	        "discord": {
-	          "Springfield": "__WEBHOOK__"
+	          "__YOUR_HOMETOWN_NAME__": "__WEBHOOK__"
 	        }
 	      }
 		```
@@ -164,18 +164,27 @@ Configuration
 	* Raid
 		- Set `"active": true,` to activate Raid notifications.
 		- Add your data to any activated notification mode (telegram / discord).
-		- Currently, there is only one Raid channel supported. Will be changed soon.
+		- Beside the main raid channel it's possible to add multiple child raid channels. Child channels will receive a duplicate of the notification if the childs name is contained in the locality name found by the reverse geocoder. You can leave the `childs` array empty if child channels are not needed.
 		- Example:
 		```
 		    "raid": [
 		      {
-		        "name": "Raid",
-		        "active": true,
+		        "name":     "All Raids",
+		        "active":   true,
 		        "telegram": {
-		          "Springfield": "__CHAT_ID__"
+		          "__YOUR_HOMETOWN_NAME__": "__CHAT_ID__"
 		        },
 		        "discord": {
-		        }
+		          "__YOUR_HOMETOWN_NAME__": "__WEBHOOK__"
+		        },
+		        "childs": [
+		            {
+		                "name":     "Südstadt",
+		                "active":   true,
+		                "telegram": "__CHAT_ID__",
+		                "discord":  "__WEBHOOK__"
+		            }
+		        ]
 		      }
 		    ]
 		```
@@ -192,10 +201,10 @@ Configuration
 	        "active": true,
 	        "ids":    [201],
 	        "telegram": {
-	          "Springfield": "__CHAT_ID__"
+	          "__YOUR_HOMETOWN_NAME__": "__CHAT_ID__"
 	        },
 	        "discord": {
-	          "Springfield": "__WEBHOOK__"
+	          "__YOUR_HOMETOWN_NAME__": "__WEBHOOK__"
 	        }
 	      }
 		```

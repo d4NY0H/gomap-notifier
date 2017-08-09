@@ -15,6 +15,8 @@ class Sender {
     private $nameList;
     // Move list (array)
     private $moveList;
+    // Raid Location (array)
+    private $raidLocation;
     // IV list (object).
     private $ivList;
     // Telegram Class.
@@ -402,6 +404,7 @@ class Sender {
         // Init.
         $message = '';
         $team = '';
+        $this->raidLocation = '';
 
         // Raid data is required.
         if (!empty($raid)) {
@@ -437,12 +440,12 @@ class Sender {
                 }
 
                 // Get location array by lat / lng.
-                $locArray = $this->geocoder->getLocation($raid->latitude, $raid->longitude);
+                $this->raidLocation = $this->geocoder->getLocation($raid->latitude, $raid->longitude);
 
                 // Location is required.
-                if (!empty($locArray)) {
+                if (!empty($this->locArray)) {
                     $message .= sprintf("<b>%s</b>, ", $raid->bossName);
-                    $message .= (!empty($locArray['district']) ? $locArray['district'] : '') . (!empty($locArray['street']) ? ", " . $locArray['street'] : "") . ", ";
+                    $message .= (!empty($this->raidLocation['district']) ? $this->raidLocation['district'] : '') . (!empty($this->raidLocation['street']) ? ", " . $this->raidLocation['street'] : "") . ", ";
                     $message .= "von " . $raid->begin . " bis " . $raid->end . ".\n";
                     $message .= sprintf("Arena: <i>%s%s</i>\n", $raid->name, $team);
                     $message .= 'http://maps.google.com/maps?q=' . $raid->latitude . ',' . $raid->longitude;
@@ -509,6 +512,42 @@ class Sender {
 
         // Return message.
         return $message;
+    }
+
+    /**
+     * Check for child raid channels and add channelIds.
+     * @param $channelIds
+     * @return array
+     */
+    public function checkChildRaidChannel($channelIds)
+    {
+        // Child raid channels found.
+        if (!empty($this->config->channel->raid->childs)) {
+            // Check each child.
+            foreach ($this->config->channel->raid->childs AS $child) {
+                // Child is active and configured.
+                if ($child->active === true && !empty($child->name)) {
+                    // Valid raid location found.
+                    if (!empty($this->raidLocation) && !empty($this->raidLocation['district'])) {
+                        // Child name found in locations district name.
+                        if (strpos($this->raidLocation['district'], $child->name) !== false) {
+                            // Telegram message.
+                            if (!empty($child->telegram)) {
+                                array_push($channelIds->telegram, $child->telegram);
+                            }
+
+                            // Discord message.
+                            if (!empty($child->discord)) {
+                                array_push($channelIds->discord, $child->discord);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        // Return the channel ids.
+        return $channelIds;
     }
 
     /**
@@ -607,7 +646,7 @@ class Sender {
      */
     private function withinRadius($mon, $latitude, $longitude, $radiusKm)
     {
-        //
+        // Calculate distance.
         $distance = $this->getDistance($mon->latitude, $mon->longitude, $latitude, $longitude);
 
         // Check if distance is within radius.

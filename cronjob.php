@@ -78,6 +78,9 @@ if (!empty($mons) || !empty($gyms)) {
 
                 // Message is required.
                 if (!empty($message)) {
+                    // Check for child channels and add channelIds.
+                    $channelIds = $sender->checkChildRaidChannel($channelIds);
+
                     // Telegram.
                     if (!empty($channelIds->telegram)) {
                         // Process each channel id.
