@@ -79,22 +79,14 @@
     ],
     "raid": [
       {
-        "name":     "All Raids",
-        "active":   true,
+        "name": "Raid",
+        "active": true,
         "telegram": {
           "__YOUR_HOMETOWN_NAME__": "__CHAT_ID__"
         },
         "discord": {
           "__YOUR_HOMETOWN_NAME__": "__WEBHOOK__"
-        },
-        "childs": [
-            {
-                "name":     "Südstadt",
-                "active":   true,
-                "telegram": "__CHAT_ID__",
-                "discord":  "__WEBHOOK__"
-            }
-        ]
+        }
       }
     ],
     "pokemonId": [
