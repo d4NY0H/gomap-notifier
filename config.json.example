@@ -1,6 +1,6 @@
 {
   "map": {
-    "url":        "https://gomap.eu",
+    "url":        "https://mapdata2.gomap.eu",
     "boundNorth": "__EDIT__",
     "boundEast":  "__EDIT__",
     "boundSouth": "__EDIT__",
