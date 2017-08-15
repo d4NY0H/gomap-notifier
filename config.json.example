@@ -167,12 +167,12 @@
     ]
   },
   "raidbot": {
-    "enabled":    "false",
-    "url":        "__YOUR_TELEGRAM_RAIDBOT_WEBHOOK__",
+    "active":    false,
+    "url":       "__YOUR_TELEGRAM_RAIDBOT_WEBHOOK__",
 	"chatid":    "__YOUR_TELEGRAM_CHAT_ID__",
-	"chattype":   "__YOUR_TELEGRAM_CHAT_TYPE__",
-	"from":       "__YOUR_TELEGRAM_SENDER_ID__",
-	"firstname":  "__YOUR_TELEGRAM_SENDER_FIRSTNAME__",
-	"lastname":   "__YOUR_TELEGRAM_SENDER_LASTNAME__"
+	"chattype":  "__YOUR_TELEGRAM_CHAT_TYPE__",
+	"from":      "__YOUR_TELEGRAM_SENDER_ID__",
+	"firstname": "__YOUR_TELEGRAM_SENDER_FIRSTNAME__",
+	"lastname":  "__YOUR_TELEGRAM_SENDER_LASTNAME__"
   }
 }

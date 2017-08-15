@@ -636,64 +636,106 @@ class Sender {
         return $d;
     }
 	
-	 /**
+    /**
      * Build raid bot POST request string to mimic inline command to avoid bot2bot communication
      * @param $raid object
      * @return string
      */
 	public function sendRaidBotMessage($raid)
     {
-        // Init.
-        $message = '';
+        // Init result.
+        $result = '';
 
-        // Raid data is required.
-        if (!empty($raid)) {
-            // Check required raid data.
-            if (!empty($raid->name) && !empty($raid->latitude) && !empty($raid->longitude) && !empty($raid->rb) && !empty($raid->re) && !empty($raid->rpid)) {
+        // Raid bot is activated.
+        if ($this->config->raidbot->active === true) {
+            // Raid data is required.
+            if (!empty($raid)) {
+                // Check required raid data.
+                if (!empty($raid->name) && !empty($raid->latitude) && !empty($raid->longitude) && !empty($raid->re) && !empty($raid->rpid)) {
 
-                // Get boss name.
-                $raid->bossName = $this->nameList->{$raid->rpid};
+                    // Get boss name.
+                    $raid->bossName = $this->nameList->{$raid->rpid};
 
-                // Get minutes left.
-                $minutes = round(($raid->re - time()) / 60) -1;
+                    // Get minutes left.
+                    $minutes = round(($raid->re - time()) / 60) - 1;
 
-				// Get team name
-				$team=$raid->team_id;
-				if ($team=='1') $team='valor';
-				if ($team=='2') $team='mystic';
-				if ($team=='3') $team='instinct';
-				
-				
-				$message = array(
-					'message' => array(
-						'chat' => array(
-							'id'=>$this->config->raidbot->chatid,
-							'type'=>$this->config->raidbot->chattype),
-						'from' => array(
-							'id' => $this->config->raidbot->from,
-							'last_name' => $this->config->raidbot->lastname,
-							'first_name'  => $this->config->raidbot->firstname),
-						    'text' => '/raid '.$raid->bossName.','.$raid->latitude.','.$raid->longitude.','.$minutes.','.$team.','.$raid->name
-					)
-				);
-				$ch = curl_init();
-				curl_setopt($ch, CURLOPT_URL, $this->config->raidbot->url);
-				curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-				curl_setopt($ch, CURLOPT_HTTPHEADER, array("Content-Type: application/json"));
-				curl_setopt($ch, CURLOPT_POST, 1);
-				curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($message));
-				curl_setopt($ch, CURLOPT_HEADER, 0); // Don't return headers.
-				curl_setopt($ch, CURLOPT_USERAGENT, 'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:49.0) Gecko/20100101 Firefox/49.0');
-				curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
-				curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-				curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);				
-				$result = curl_exec($ch);
-				// Return message.
-				print(json_decode($result));
-				return json_decode($result);
-				
+                    // Team id found.
+                    if (!empty($raid->team_id)) {
+                        // Switch by team id.
+                        switch ($raid->team_id) {
+                            case(1):
+                                $team = 'valor';
+                                break;
+                            case(2):
+                                $team = 'mystic';
+                                break;
+                            case(3):
+                                $team = 'instinct';
+                                break;
+                            default:
+                                $team = '';
+                        }
+
+                        // Team id is missing.
+                    } else {
+                        $team = '';
+                    }
+
+                    // Build message array.
+                    $message = array(
+                        'message' => array(
+                            'chat' => array(
+                                'id' => $this->config->raidbot->chatid,
+                                'type' => $this->config->raidbot->chattype
+                            ),
+                            'from' => array(
+                                'id' => $this->config->raidbot->from,
+                                'last_name' => $this->config->raidbot->lastname,
+                                'first_name' => $this->config->raidbot->firstname
+                            ),
+                            'text' => '/raid ' . $raid->bossName . ',' . $raid->latitude . ',' . $raid->longitude . ',' . $minutes . ',' . $team . ',' . $raid->name
+                        )
+                    );
+
+                    // Create json string.
+                    $postFields = json_encode($message);
+
+                    // Send data by curl.
+                    $result = $this->curl($this->config->raidbot->url, $postFields);
+                }
             }
         }
 
+        // Return message.
+        return json_decode($result);
+    }
+
+    /**
+     * Send data by curl.
+     * @param $url string
+     * @param $postFields string
+     * @return string
+     */
+    private function curl($url, $postFields)
+    {
+        $ch = curl_init();
+
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, array("Content-Type: application/json"));
+        curl_setopt($ch, CURLOPT_POST, 1);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $postFields);
+        curl_setopt($ch, CURLOPT_HEADER, 0); // Don't return headers.
+        curl_setopt($ch, CURLOPT_USERAGENT, 'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:49.0) Gecko/20100101 Firefox/49.0');
+        curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
+
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
+
+        $result = curl_exec($ch);
+
+        curl_close($ch);
+
+        return $result;
     }
 }
