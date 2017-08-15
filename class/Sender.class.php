@@ -647,7 +647,7 @@ class Sender {
         $result = '';
 
         // Raid bot is activated.
-        if ($this->config->raidbot->active === true) {
+        if (isset($this->config->raidbot->active) && $this->config->raidbot->active === true) {
             // Raid data is required.
             if (!empty($raid)) {
                 // Check required raid data.
