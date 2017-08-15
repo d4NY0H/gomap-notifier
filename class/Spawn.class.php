@@ -169,7 +169,7 @@ class Spawn {
         $query = http_build_query($array);
 
         // Build url.
-        $url = $this->config->map->url . '/mnew.php?' . $query;
+        $url = $this->config->map->url . '/m.php?' . $query;
 
         return $url;
     }
