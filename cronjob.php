@@ -96,6 +96,10 @@ if (!empty($mons) || !empty($gyms)) {
                     }
                 }
             }
+			if (isset($this->config->raidbot->enabled) && $this->config->raidbot->enabled === true) {
+				// mimic telegram webhook
+				$sender->sendRaidBotMessage($gym);
+				}
         }
     }
 }
