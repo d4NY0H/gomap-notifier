@@ -117,13 +117,30 @@ Configuration
 	  },
 	```
 
-3. **Telegram**
+3. **Raidbot**
+
+	- Trigger Raid polls created by the [raid-pokemon-bot](https://github.com/d4NY0H/raid-pokemon-bot)
+	
+	- Example:
+	```
+	  "raidBot": {
+      "active":    false,
+      "url":       "__YOUR_TELEGRAM_RAIDBOT_WEBHOOK__",
+      "chatId":    "__YOUR_TELEGRAM_CHAT_ID__",
+      "chatType":  "__YOUR_TELEGRAM_CHAT_TYPE__",
+      "from":      "__YOUR_TELEGRAM_SENDER_ID__",
+      "firstName": "__YOUR_TELEGRAM_SENDER_FIRSTNAME__",
+      "lastName":  "__YOUR_TELEGRAM_SENDER_LASTNAME__"
+  }
+	```
+
+4. **Telegram**
 	
 	- Set `"active": true,` to activate telegram notifications.
 	- Set `apiKey` to the API Token from the <a href="https://telegram.me/botfather">BotFather</a>.
 	- Set your Bot name.
 
-4. **Discord**
+5. **Discord**
 	
 	- Set `"active": true,` to activate discord notifications. Name your Discord Bot. Leave `avatar` and `webhook` untouched.
 
@@ -137,7 +154,7 @@ Configuration
 	  },
 	```
 
-5. **Channel**
+6. **Channel**
 	* IV List
 	
 		- Use the IV list if you want to receive nofications about many different pokemon in a single channel. You can configure IV lists for your hometown or any defined district. Add your data to any activated notification mode (telegram / discord).
@@ -200,7 +217,7 @@ Configuration
 	      }
 		```
 
-6. IV List
+7. IV List
 
  	* ivList.yourcityname.json
 
@@ -233,17 +250,6 @@ Troubleshooting
 **reset.php**
 
 This file can be used to delete the content of the <a href="https://github.com/d4NY0H/gomap-notifier/blob/master/maxeid.txt">maxeid.txt</a> and <a href="https://github.com/d4NY0H/gomap-notifier/blob/master/maxgid.txt">maxgid.txt</a> files. This is necessary if the ids have changed on the server side and no notifications are sent anymore.
-
-Todos
-------------
-- Add voting (times) automatically to raid messages in Telegram like the [@groupagreebot](https://t.me/groupagreebot) bot.<br />
--> Implement something like the [RaidPokemonBot](https://github.com/atis/raid-pokemon-bot). ***Contributors are needed for this!***
-
-Development
-------------
-
-Want to contribute? Great! [Fork my repo, apply your changes and open me a PR](https://help.github.com/articles/creating-a-pull-request-from-a-fork/)!<br />
-Contact me by Telegram: [@d4NY0](https://t.me/d4NY0) 
 
 License
 ------------
