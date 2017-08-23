@@ -26,7 +26,6 @@
   "raidBot": {
       "active":    false,
       "url":       "__YOUR_TELEGRAM_RAIDBOT_WEBHOOK__",
-      "chatId":    "__YOUR_TELEGRAM_CHAT_ID__",
       "chatType":  "__YOUR_TELEGRAM_CHAT_TYPE__",
       "from":      "__YOUR_TELEGRAM_SENDER_ID__",
       "firstName": "__YOUR_TELEGRAM_SENDER_FIRSTNAME__",
@@ -98,6 +97,10 @@
         }
       }
     ],
+    "raidBot": {
+        "__DISTRICT_NAME_1__": "__CHAT_ID__",
+        "__DISTRICT_NAME_2__": "__CHAT_ID__"
+    },
     "pokemonId": [
       {
         "name":   "Icognito",

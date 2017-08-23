@@ -655,55 +655,66 @@ class Sender {
                     // Check if the raid is within given radius.
                     if ($this->withinRadius($raid, $this->config->raids->latitude, $this->config->raids->longitude, $this->config->raids->radiusKm)) {
 
-                        // Get boss name.
-                        $raid->bossName = $this->nameList->{$raid->rpid};
+                        // Get location array by lat / lng.
+                        $locArray = $this->geocoder->getLocation($raid->latitude, $raid->longitude);
 
-                        // Get minutes left.
-                        $minutes = round(($raid->re-time())/60)-1;
+                        // Location is required.
+                        if (!empty($locArray) && !empty($locArray['district']) && !empty($locArray['district'])) {
 
-                        // Team id found.
-                        if (!empty($raid->team_id)) {
-                            // Switch by team id.
-                            switch ($raid->team_id) {
-                                case(1):
-                                    $team = 'valor';
-                                    break;
-                                case(2):
-                                    $team = 'mystic';
-                                    break;
-                                case(3):
-                                    $team = 'instinct';
-                                    break;
-                                default:
+                            // Check district to get the channelId.
+                            if (!empty($this->config->channel->raidBot->{$locArray['district']})) {
+
+                                // Get the boss name.
+                                $raid->bossName = $this->nameList->{$raid->rpid};
+
+                                // Get minutes left.
+                                $minutes = round(($raid->re - time()) / 60) - 1;
+
+                                // Team id found.
+                                if (!empty($raid->team_id)) {
+                                    // Switch by team id.
+                                    switch ($raid->team_id) {
+                                        case(1):
+                                            $team = 'valor';
+                                            break;
+                                        case(2):
+                                            $team = 'mystic';
+                                            break;
+                                        case(3):
+                                            $team = 'instinct';
+                                            break;
+                                        default:
+                                            $team = '';
+                                    }
+
+                                // Team id is missing.
+                                } else {
                                     $team = '';
+                                }
+
+                                // Build message array.
+                                $message = array(
+                                    'message' => array(
+                                        'chat' => array(
+                                            'id' => $this->config->channel->raidBot->{$locArray['district']},
+                                            'type' => $this->config->raidBot->chatType
+                                        ),
+                                        'from' => array(
+                                            'id' => $this->config->raidBot->from,
+                                            'last_name' => $this->config->raidBot->lastName,
+                                            'first_name' => $this->config->raidBot->firstName
+                                        ),
+                                        'text' => '/raid ' . $raid->bossName . ',' . $raid->latitude . ',' . $raid->longitude . ',' . $minutes . ',' . $team . ',' . $raid->name . ',' . $locArray['district'] . ',' . $locArray['street']
+                                    )
+                                );
+
+                                // Create json string.
+                                $postFields = json_encode($message);
+
+                                // Send data by curl.
+                                $result = $this->curl($this->config->raidBot->url, $postFields);
                             }
-
-                            // Team id is missing.
-                        } else {
-                            $team = '';
                         }
-
-                        // Build message array.
-                        $message = array(
-                            'message' => array(
-                                'chat' => array(
-                                    'id' => $this->config->raidBot->chatId,
-                                    'type' => $this->config->raidBot->chatType
-                                ),
-                                'from' => array(
-                                    'id' => $this->config->raidBot->from,
-                                    'last_name' => $this->config->raidBot->lastName,
-                                    'first_name' => $this->config->raidBot->firstName
-                                ),
-                                'text' => '/raid ' . $raid->bossName . ',' . $raid->latitude . ',' . $raid->longitude . ',' . $minutes . ',' . $team . ',' . $raid->name
-                            )
-                        );
-
-                        // Create json string.
-                        $postFields = json_encode($message);
-
-                        // Send data by curl.
-                        $result = $this->curl($this->config->raidBot->url, $postFields);
                     }
                 }
             }
